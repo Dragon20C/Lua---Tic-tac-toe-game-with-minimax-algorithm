@@ -134,6 +134,7 @@ local function main(board)
                     return
                 elseif check_tie(board) then
                     print("The game has ended at a tie!")
+                    return
                 end
                 current_turn = "O"
             else
@@ -149,6 +150,7 @@ local function main(board)
                 return
             elseif check_tie(board) then
                 print("The game has ended at a tie!")
+                return
             end
             current_turn = "X"
         end
