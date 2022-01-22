@@ -48,14 +48,6 @@ local function check_tie(board)
     return is_not_empty == 9
 end
 
-local function get_array_size(array)
-    local count = 0
-    for i in pairs(array) do
-        count = count + 1
-    end
-    return count
-end
-
 local function find_empty_slots(board)
     local key_array = {"top_L","top_M","top_R","mid_L","mid_M","mid_R","low_L","low_M","low_R"}
     local empty_slots = {}
@@ -69,7 +61,7 @@ end
 
 local function minimax(board,current_player) -- Minimax algorithm
     local avaliable_slots = find_empty_slots(board) -- gets a table of empty slots on the board
-    local size_of_array = get_array_size(avaliable_slots) -- Lua doesnt have a way to check table size so I created a function for it, we use this as a depth
+    local size_of_array = #avaliable_slots
 
     if check_win(board,"X") then -- Check if the player has won a game
         return {score = -1}
@@ -101,7 +93,7 @@ local function minimax(board,current_player) -- Minimax algorithm
     local bestTestPlay = nil -- Holds the index of the best possiable move
     if current_player == "O" then
         local best_score = -700 -- Check if the ai has a win conditon by checking the score value
-        for i = 1, get_array_size(allTestPlayInfos) do
+        for i = 1, #allTestPlayInfos do
             if allTestPlayInfos[i]["score"] > best_score then
                 best_score = allTestPlayInfos[i]["score"] -- Add the best score
                 bestTestPlay = i -- Set the index of the best move
@@ -109,7 +101,7 @@ local function minimax(board,current_player) -- Minimax algorithm
         end
     else
         local best_score = 700 -- Check if the player has a win conditon by checking the score value
-        for i = 1, get_array_size(allTestPlayInfos) do
+        for i = 1, #allTestPlayInfos do
             if allTestPlayInfos[i]["score"] < best_score then
                 best_score = allTestPlayInfos[i]["score"]
                 bestTestPlay = i
